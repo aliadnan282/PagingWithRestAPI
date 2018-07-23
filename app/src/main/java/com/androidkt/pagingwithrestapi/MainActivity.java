@@ -1,10 +1,13 @@
 package com.androidkt.pagingwithrestapi;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.View;
 
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
         final UserAdapter userUserAdapter = new UserAdapter(this);
 
         viewModel.userList.observe(this, pagedList -> {
-            userUserAdapter.setList(pagedList);
+            userUserAdapter.submitList(pagedList);
         });
 
         viewModel.networkState.observe(this, networkState -> {
