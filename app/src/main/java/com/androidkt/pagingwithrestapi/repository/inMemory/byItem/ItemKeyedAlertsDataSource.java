@@ -1,3 +1,4 @@
+/*
 package com.androidkt.pagingwithrestapi.repository.inMemory.byItem;
 
 import android.util.Log;
@@ -7,7 +8,7 @@ import com.androidkt.pagingwithrestapi.api.GitHubService;
 import com.androidkt.pagingwithrestapi.repository.NetworkState;
 import com.androidkt.pagingwithrestapi.repository.Status;
 import com.androidkt.pagingwithrestapi.vo.AlertsFeedDetailModel;
-import com.androidkt.pagingwithrestapi.vo.AlertsFeedMain;
+import com.androidkt.pagingwithrestapi.vo.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +21,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+*/
 /**
  * Created by brijesh on 20/9/17.
- */
+ *//*
 
-public class ItemKeyedUserDataSource extends ItemKeyedDataSource<Long, AlertsFeedDetailModel> {
+
+public class ItemKeyedAlertsDataSource extends ItemKeyedDataSource<Long, User> {
     public static final String TAG = "ItemKeyedUserDataSource";
     GitHubService gitHubService;
     LoadInitialParams<Long> initialParams;
@@ -32,9 +35,8 @@ public class ItemKeyedUserDataSource extends ItemKeyedDataSource<Long, AlertsFee
     private MutableLiveData<NetworkState> networkState;
     private MutableLiveData<NetworkState> initialLoading;
     private Executor retryExecutor;
-    long pageSize=0l;
 
-    public ItemKeyedUserDataSource(Executor retryExecutor) {
+    public ItemKeyedAlertsDataSource(Executor retryExecutor) {
         gitHubService = GitHubApi.createGitHubService();
         networkState = new MutableLiveData<>();
         initialLoading = new MutableLiveData<>();
@@ -51,22 +53,21 @@ public class ItemKeyedUserDataSource extends ItemKeyedDataSource<Long, AlertsFee
     }
 
     @Override
-    public void loadInitial(@NonNull LoadInitialParams<Long> params, @NonNull LoadInitialCallback<AlertsFeedDetailModel> callback) {
+    public void loadInitial(@NonNull LoadInitialParams<Long> params, @NonNull LoadInitialCallback<User> callback) {
         Log.i(TAG, "Loading Rang " + 1 + " Count " + params.requestedLoadSize);
         List<AlertsFeedDetailModel> gitHubUser = new ArrayList<>();
         initialParams = params;
         initialLoading.postValue(NetworkState.LOADING);
         networkState.postValue(NetworkState.LOADING);
-        gitHubService.getUser("1231", "47", "31.4163", "74.2686", String.valueOf(pageSize), String.valueOf(params.requestedLoadSize)).enqueue(new Callback<AlertsFeedMain>() {
+        gitHubService.getAlerts(1, params.requestedLoadSize).enqueue(new Callback<List<User>>() {
             @Override
-            public void onResponse(Call<AlertsFeedMain> call, Response<AlertsFeedMain> response) {
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.isSuccessful() && response.code() == 200) {
-                    gitHubUser.addAll(response.body().getSafetyFeedData().getSafetyFeedList());
+                    gitHubUser.addAll(response.body());
                     callback.onResult(gitHubUser);
                     initialLoading.postValue(NetworkState.LOADED);
                     networkState.postValue(NetworkState.LOADED);
                     initialParams = null;
-                    pageSize+=10;
                 } else {
                     Log.e("API CALL", response.message());
                     initialLoading.postValue(new NetworkState(Status.FAILED, response.message()));
@@ -75,7 +76,7 @@ public class ItemKeyedUserDataSource extends ItemKeyedDataSource<Long, AlertsFee
             }
 
             @Override
-            public void onFailure(Call<AlertsFeedMain> call, Throwable t) {
+            public void onFailure(Call<List<User>> call, Throwable t) {
                 String errorMessage;
                 errorMessage = t.getMessage();
                 if (t == null) {
@@ -83,29 +84,25 @@ public class ItemKeyedUserDataSource extends ItemKeyedDataSource<Long, AlertsFee
                 }
                 networkState.postValue(new NetworkState(Status.FAILED, errorMessage));
             }
-
         });
 
     }
 
     @Override
-    public void loadAfter(@NonNull LoadParams<Long> params, @NonNull LoadCallback<AlertsFeedDetailModel> callback) {
+    public void loadAfter(@NonNull LoadParams<Long> params, @NonNull LoadCallback<User> callback) {
         Log.i(TAG, "Loading Rang " + params.key + " Count " + params.requestedLoadSize);
-        List<AlertsFeedDetailModel> gitHubUser = new ArrayList<>();
+        List<User> gitHubUser = new ArrayList<>();
         afterParams = params;
 
         networkState.postValue(NetworkState.LOADING);
-        gitHubService.getUser("1231", "47", "31.4163", "74.2686", String.valueOf(params.key), String.valueOf(params.requestedLoadSize)).enqueue(new Callback<AlertsFeedMain>() {
-
-
+        gitHubService.getUser(params.key, params.requestedLoadSize).enqueue(new Callback<List<User>>() {
             @Override
-            public void onResponse(Call<AlertsFeedMain> call, Response<AlertsFeedMain> response) {
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.isSuccessful()) {
-                    gitHubUser.addAll(response.body().getSafetyFeedData().getSafetyFeedList());
+                    gitHubUser.addAll(response.body());
                     callback.onResult(gitHubUser);
                     networkState.postValue(NetworkState.LOADED);
                     afterParams = null;
-              pageSize+=10;
                 } else {
                     networkState.postValue(new NetworkState(Status.FAILED, response.message()));
                     Log.e("API CALL", response.message());
@@ -113,7 +110,7 @@ public class ItemKeyedUserDataSource extends ItemKeyedDataSource<Long, AlertsFee
             }
 
             @Override
-            public void onFailure(Call<AlertsFeedMain> call, Throwable t) {
+            public void onFailure(Call<List<User>> call, Throwable t) {
                 String errorMessage;
                 errorMessage = t.getMessage();
                 if (t == null) {
@@ -126,15 +123,15 @@ public class ItemKeyedUserDataSource extends ItemKeyedDataSource<Long, AlertsFee
     }
 
     @Override
-    public void loadBefore(@NonNull LoadParams<Long> params, @NonNull LoadCallback<AlertsFeedDetailModel> callback) {
+    public void loadBefore(@NonNull LoadParams<Long> params, @NonNull LoadCallback<User> callback) {
 
     }
 
     @NonNull
     @Override
-    public Long getKey(@NonNull AlertsFeedDetailModel item) {
-        return pageSize;
+    public Long getKey(@NonNull User item) {
+        return item.userId;
     }
 
-
 }
+*/

@@ -1,18 +1,19 @@
 package com.androidkt.pagingwithrestapi.ui;
 
+import com.androidkt.pagingwithrestapi.repository.NetworkState;
+import com.androidkt.pagingwithrestapi.repository.inMemory.byItem.GitHubUserDataSourceFactory;
+import com.androidkt.pagingwithrestapi.repository.inMemory.byItem.ItemKeyedUserDataSource;
+import com.androidkt.pagingwithrestapi.vo.AlertsFeedDetailModel;
+import com.androidkt.pagingwithrestapi.vo.User;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
-
-import com.androidkt.pagingwithrestapi.repository.NetworkState;
-import com.androidkt.pagingwithrestapi.repository.inMemory.byItem.GitHubUserDataSourceFactory;
-import com.androidkt.pagingwithrestapi.repository.inMemory.byItem.ItemKeyedUserDataSource;
-import com.androidkt.pagingwithrestapi.vo.User;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 /**
  * Created by brijesh on 18/9/17.
@@ -20,7 +21,7 @@ import java.util.concurrent.Executors;
 
 public class UserViewModel extends ViewModel {
 
-    public LiveData<PagedList<User>> userList;
+    public LiveData<PagedList<AlertsFeedDetailModel>> userList;
     public LiveData<NetworkState> networkState;
     Executor executor;
     LiveData<ItemKeyedUserDataSource> tDataSource;
@@ -38,7 +39,7 @@ public class UserViewModel extends ViewModel {
         PagedList.Config pagedListConfig =
                 (new PagedList.Config.Builder()).setEnablePlaceholders(false)
                         .setInitialLoadSizeHint(10)
-                        .setPageSize(20).build();
+                        .setPageSize(10).build();
 
         userList = (new LivePagedListBuilder(githubUserDataSourceFacteory, pagedListConfig))
                 .build();

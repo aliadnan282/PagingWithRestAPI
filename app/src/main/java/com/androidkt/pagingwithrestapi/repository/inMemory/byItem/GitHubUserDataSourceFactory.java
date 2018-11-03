@@ -16,7 +16,7 @@ public class GitHubUserDataSourceFactory extends DataSource.Factory {
     Executor executor;
 
     public GitHubUserDataSourceFactory(Executor executor) {
-        this.mutableLiveData = new MutableLiveData<ItemKeyedUserDataSource>();
+        this.mutableLiveData = new MutableLiveData<>();
         this.executor = executor;
     }
 

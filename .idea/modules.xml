@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PagingWithRestAPI.iml" filepath="$PROJECT_DIR$/PagingWithRestAPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PagingWithRestAPIJava.iml" filepath="$PROJECT_DIR$/.idea/PagingWithRestAPIJava.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

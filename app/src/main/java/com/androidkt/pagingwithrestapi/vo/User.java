@@ -10,14 +10,14 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity
 public class User {
-    public static DiffUtil.ItemCallback<User> DIFF_CALLBACK = new DiffUtil.ItemCallback<User>() {
+    public static DiffUtil.ItemCallback<AlertsFeedDetailModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<AlertsFeedDetailModel>() {
         @Override
-        public boolean areItemsTheSame(@NonNull User oldItem, @NonNull User newItem) {
-            return oldItem.userId == newItem.userId;
+        public boolean areItemsTheSame(@NonNull AlertsFeedDetailModel oldItem, @NonNull AlertsFeedDetailModel newItem) {
+            return oldItem.feedIdentifier .equals(newItem.feedIdentifier);
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull User oldItem, @NonNull User newItem) {
+        public boolean areContentsTheSame(@NonNull AlertsFeedDetailModel oldItem, @NonNull AlertsFeedDetailModel newItem) {
             return oldItem.equals(newItem);
         }
     };

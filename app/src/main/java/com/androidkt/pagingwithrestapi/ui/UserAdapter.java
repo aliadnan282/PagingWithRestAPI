@@ -13,9 +13,10 @@ import com.androidkt.pagingwithrestapi.R;
 import com.androidkt.pagingwithrestapi.repository.NetworkState;
 import com.androidkt.pagingwithrestapi.repository.Status;
 import com.androidkt.pagingwithrestapi.util.ListItemClickListener;
+import com.androidkt.pagingwithrestapi.vo.AlertsFeedDetailModel;
 import com.androidkt.pagingwithrestapi.vo.User;
 
-public class UserAdapter extends PagedListAdapter<User, RecyclerView.ViewHolder> {
+public class UserAdapter extends PagedListAdapter<AlertsFeedDetailModel, RecyclerView.ViewHolder> {
 
     private static final String TAG = "UserAdapter";
     private NetworkState networkState;
@@ -93,13 +94,13 @@ public class UserAdapter extends PagedListAdapter<User, RecyclerView.ViewHolder>
 
         public UserItemViewHolder(View itemView) {
             super(itemView);
-            userId = itemView.findViewById(R.id.userId);
-            userName = itemView.findViewById(R.id.userName);
+            userId = itemView.findViewById(R.id.member_name);
+            userName = itemView.findViewById(R.id.memberType);
         }
 
-        public void bindTo(User user) {
-            userName.setText(user.firstName);
-            userId.setText(String.valueOf(user.userId));
+        public void bindTo(AlertsFeedDetailModel user) {
+            userName.setText(user.getFeedIdentifier());
+            userId.setText(String.valueOf(user.getAlertId()));
         }
     }
 

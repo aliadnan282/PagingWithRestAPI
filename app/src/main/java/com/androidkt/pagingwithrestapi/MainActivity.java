@@ -26,9 +26,7 @@ public class MainActivity extends AppCompatActivity implements ListItemClickList
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = findViewById(R.id.userList);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         viewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 

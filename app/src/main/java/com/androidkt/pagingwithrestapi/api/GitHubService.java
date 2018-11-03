@@ -5,7 +5,7 @@ package com.androidkt.pagingwithrestapi.api;
  */
 
 
-import com.androidkt.pagingwithrestapi.vo.User;
+import com.androidkt.pagingwithrestapi.vo.AlertsFeedMain;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface GitHubService {
-    @GET("/users")
-    Call<List<User>> getUser(@Query("since") long since, @Query("per_page") int perPage);
+    @GET("sn/member/feed")
+    Call<AlertsFeedMain> getUser(@Query("fid") String fid, @Query("pid") String pid, @Query("latitude") String lat, @Query("longitude") String lng, @Query("offset") String offset, @Query("limit") String limit);
 }
